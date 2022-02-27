@@ -13,5 +13,5 @@ async def get_name(
   return {
       "name": name,}
 
-async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     return func.AsgiMiddleware(app).handle(req, context)
