@@ -48,8 +48,10 @@ The following code shows the use of `AsgiMiddleware`, which redirects the invoca
 ```python
 import azure.functions as func
 from FastAPIApp import app
+import nest_asyncio
+nest_asyncio.apply()
 
-def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
   """Each request is redirected to the ASGI handler.
     """
     return func.AsgiMiddleware(app).handle(req, context)
