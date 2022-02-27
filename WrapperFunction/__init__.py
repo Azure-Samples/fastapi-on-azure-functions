@@ -5,7 +5,7 @@ from FastAPIApp import app  # Main API application
 @app.get("/sample")
 async def index():
   return {
-      "info": "Try /hello/Shivani for parameterized route.\n",}
+      "info": "Try /hello/Shivani for parameterized route.",}
 
 @app.get("/hello/{name}")
 async def get_name(
@@ -13,5 +13,5 @@ async def get_name(
   return {
       "name": name,}
 
-def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     return func.AsgiMiddleware(app).handle(req, context)
