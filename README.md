@@ -35,7 +35,7 @@ To create an Azure Function app in VSCode, please go through the [Microsoft Docs
 
 Clone or download [this sample](https://github.com/Azure-Samples/fastapi-app-on-azure-functions/) repository, and open the sample folder in Visual Studio Code or your IDE of choice.
 
-## Flask Framework in an Azure Function App
+## FastAPI Framework in an Azure Function App
 
 The file requirements.txt is updated to include the following depdendencies.
 ```python
@@ -98,7 +98,7 @@ The file host.json is updated to include the HTTP `routePrefix`.
 
 To run Function Apps using Core Tools, see [Run functions locally with Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Cpython%2Cportal%2Cbash#start).
 
-To test locally, run the below to install Flask.
+To test locally, run the below to install FastAPI.
 
 ```log
 pip install -r requirements.txt
@@ -133,6 +133,6 @@ http://<FunctionAppName>.azurewebsites.net/hello/Foo
 
 ## Conclusion and Next Steps
 
-[This sample](https://github.com/Azure-Samples/fastapi-app-on-azure-functions/) helps you setup an app with the Flask framework and can help you get started using web frameworks in Azure Functions.
+[This sample](https://github.com/Azure-Samples/fastapi-app-on-azure-functions/) helps you setup an app with the FastAPI framework and can help you get started using web frameworks in Azure Functions.
 
 To learn more about altering Python functions to leverage WSGI and ASGI-compatible frameworks, see [Web frameworks](https://docs.microsoft.com/azure/azure-functions/functions-reference-python?tabs=asgi%2Cazurecli-linux%2Capplication-level#web-frameworks).
