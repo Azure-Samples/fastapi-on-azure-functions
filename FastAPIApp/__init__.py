@@ -2,4 +2,4 @@ import fastapi
 
 app=fastapi.FastAPI()
 
-# <TO DO> Add anything needed to setup/config the application here
+# <TO DO> Add setup or configuration specifications for the application here
