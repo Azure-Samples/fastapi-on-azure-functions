@@ -46,9 +46,11 @@ Note that `azure-functions-worker` should not be included in this file as the Py
 
 The following code shows the use of `AsgiMiddleware`, which redirects the invocations to FastAPI handler.
 ```python
+
 import azure.functions as func
 from FastAPIApp import app
 import nest_asyncio
+
 nest_asyncio.apply()
 
 async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
