@@ -34,12 +34,12 @@ The `requirements.txt` file has an additional dependency of the `fastapi` and `n
 
 ```
 azure-functions
-**fastapi**
-**nest_asyncio**
+fastapi
+nest_asyncio
 ```
 
 
-The file host.json includes the a `routePrefix` key.
+The file host.json includes the a `routePrefix` key with a value of empty string.
 
 ```json
 {
@@ -68,7 +68,7 @@ Inside the `WrapperFunction` folder, the file `function.json` includes a `route`
         "get",
         "post"
       ],
-      **"route": "/{*route}"**
+      "route": "/{*route}"
     },
     {
       "type": "http",
@@ -79,7 +79,7 @@ Inside the `WrapperFunction` folder, the file `function.json` includes a `route`
 }
 ```
 
-In that same folder, the `__init__.py` file uses `AsgiMiddleware` to redirect invocations to a FastAPI handler.
+In that same folder, the `__init__.py` file uses `AsgiMiddleware` to redirect invocations to a FastAPI app with two routes defined.
 
 ```python
 import logging
@@ -89,7 +89,19 @@ from FastAPIApp import app  # Main API application
 
 nest_asyncio.apply()
 
-# Handlers
+
+@app.get("/sample")
+async def index():
+    return {
+        "info": "Try /hello/Shivani for parameterized route.",
+    }
+
+
+@app.get("/hello/{name}")
+async def get_name(name: str):
+    return {
+        "name": name,
+    }
 
 async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     """Each request is redirected to the ASGI handler."""
