@@ -17,7 +17,7 @@ Azure Functions supports WSGI and ASGI-compatible frameworks with HTTP-triggered
   
 ## Prerequisites
 
-Here are some of the prerequisites to get [this sample](https://github.com/Azure-Samples/fastapi-app-on-azure-functions/) to work for you.
+Here are some of the prerequisites to get [this sample](https://github.com/Azure-Samples/fastapi-on-azure-functions) to work for you.
 
 **Install Python**
 
@@ -137,6 +137,6 @@ http://<FunctionAppName>.azurewebsites.net/hello/Foo
 
 ## Conclusion and Next Steps
 
-[This sample](https://github.com/Azure-Samples/fastapi-app-on-azure-functions/) helps you setup an app with the FastAPI framework and can help you get started using web frameworks in Azure Functions.
+[This sample](https://github.com/Azure-Samples/fastapi-on-azure-functions) helps you setup an app with the FastAPI framework and can help you get started using web frameworks in Azure Functions.
 
 To learn more about altering Python functions to leverage WSGI and ASGI-compatible frameworks, see [Web frameworks](https://docs.microsoft.com/azure/azure-functions/functions-reference-python?tabs=asgi%2Cazurecli-linux%2Capplication-level#web-frameworks).
