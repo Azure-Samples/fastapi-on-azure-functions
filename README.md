@@ -68,7 +68,7 @@ Inside the `WrapperFunction` folder, the file `function.json` includes a `route`
         "get",
         "post"
       ],
-      "route": "/{*route}"
+      "route": "{*route}"
     },
     {
       "type": "http",
