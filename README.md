@@ -35,7 +35,6 @@ The `requirements.txt` file has an additional dependency of the `fastapi` and `n
 ```
 azure-functions
 fastapi
-nest_asyncio
 ```
 
 
@@ -84,10 +83,7 @@ In that same folder, the `__init__.py` file uses `AsgiMiddleware` to redirect in
 ```python
 import logging
 import azure.functions as func
-import nest_asyncio
 from FastAPIApp import app  # Main API application
-
-nest_asyncio.apply()
 
 
 @app.get("/sample")
@@ -105,7 +101,7 @@ async def get_name(name: str):
 
 async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     """Each request is redirected to the ASGI handler."""
-    return func.AsgiMiddleware(app).handle(req, context)
+    return await func.AsgiMiddleware(app).handle_async(req, context)
 ```
 
 ## Running the sample
