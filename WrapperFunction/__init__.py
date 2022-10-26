@@ -1,9 +1,6 @@
 import logging
 import azure.functions as func
-import nest_asyncio
 from FastAPIApp import app  # Main API application
-
-nest_asyncio.apply()
 
 
 @app.get("/sample")
@@ -21,4 +18,4 @@ async def get_name(name: str):
 
 
 async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
-    return func.AsgiMiddleware(app).handle(req, context)
+    return await func.AsgiMiddleware(app).handle_async(req, context)
