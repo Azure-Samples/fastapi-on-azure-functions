@@ -4,4 +4,3 @@
 
 azure-functions
 fastapi
-nest_asyncio
