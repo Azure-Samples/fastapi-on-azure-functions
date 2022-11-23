@@ -141,6 +141,10 @@ http://<FunctionAppName>.azurewebsites.net/sample
 http://<FunctionAppName>.azurewebsites.net/hello/Foo
 ```
 
+If you get an error about `handle_async` not being defined, that is likely because the Azure Functions runtime doesn't yet have the latest version of `azure-functions`.
+To work around that for now, add an environment value with the name `PYTHON_ISOLATE_WORKER_DEPENDENCIES` and value of `1`.
+That environment variable ensures that the packages in your `requirements.txt` are installed in a separate virtual environment than the packages of the functions runtime.
+
 ## Conclusion and Next Steps
 
 Now you have a simple Azure Function App using the FastAPI framework, and you can continue building on it to develop more sophisticated applications.
