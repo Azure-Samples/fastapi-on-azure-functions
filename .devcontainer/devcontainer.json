@@ -1,5 +1,5 @@
 {
-    "name": "Azure Developer CLI",
+    "name": "FastAPI on Azure Functions",
     "build": {
         "dockerfile": "Dockerfile"
     },
@@ -33,7 +33,7 @@
         8000,
         7071
     ],
-    "postAttachCommand": "python3 -m venv .venv && source .venv/bin/activate",
+    "postAttachCommand": "python3 -m venv .venv && . .venv/bin/activate",
 
     "remoteUser": "vscode",
     "hostRequirements": {
