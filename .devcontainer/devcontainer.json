@@ -14,9 +14,6 @@
         "ghcr.io/devcontainers/features/node:1": {
             "version": "16",
             "nodeGypDependencies": false
-        },
-        "ghcr.io/devcontainers/features/python:1": {
-            "version": "os-provided"
         }
     },
     "customizations": {
@@ -31,7 +28,8 @@
             ]
         }
     },
-    "postCreateCommand": "python3 -m venv .venv && . .venv/bin/activate",
+    "postCreateCommand": "python3 -m venv .venv",
+    "postAttachCommand": ". .venv/bin/activate",
     "remoteUser": "vscode",
     "hostRequirements": {
         "memory": "8gb"
