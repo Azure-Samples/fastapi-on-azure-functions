@@ -1,0 +1,23 @@
+name: Validate bicep scripts
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          inlineScript: az bicep build -f infra/main.bicep
