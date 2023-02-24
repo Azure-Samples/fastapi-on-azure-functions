@@ -30,7 +30,7 @@ Clone or download [this sample's repository](https://github.com/Azure-Samples/fa
 
 The code in the sample folder has already been updated to support use of the FastAPI. Let's walk through the changed files.
 
-The `requirements.txt` file has an additional dependency of the `fastapi` and `nest_asyncio` modules:
+The `requirements.txt` file has an additional dependency of the `fastapi` module:
 
 ```
 azure-functions
