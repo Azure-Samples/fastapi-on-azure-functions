@@ -30,18 +30,7 @@ module monitoring './core/monitor/monitoring.bicep' = {
     tags: tags
     logAnalyticsName: '${prefix}-logworkspace'
     applicationInsightsName: appInsightsName
-    applicationInsightsDashboardName: 'appinsights-dashboard'
-  }
-}
-
-module appInsightsDashboard 'appinsightsdashboard.bicep' = {
-  name: 'appinsights-dashboard'
-  scope: resourceGroup
-  params: {
-    prefix: prefix
-    location: location
-    tags: tags
-    appInsightsName: appInsightsName
+    applicationInsightsDashboardName: '${prefix}-appinsights-dashboard'
   }
 }
 
