@@ -3,10 +3,16 @@
   "tasks": [
     {
       "type": "func",
+      "label": "func: host start",
       "command": "host start",
       "problemMatcher": "$func-python-watch",
       "isBackground": true,
-      "dependsOn": "pip install (functions)"
+      "dependsOn": "pip install (functions)",
+      "options": {
+        "env": {
+          "PYTHON_ISOLATE_WORKER_DEPENDENCIES": "1"
+        }
+      }
     },
     {
       "label": "pip install (functions)",
