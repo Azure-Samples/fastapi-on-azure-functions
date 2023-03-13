@@ -108,27 +108,29 @@ async def main(req: func.HttpRequest, context: func.Context) -> func.HttpRespons
 
 ### Testing locally
 
-First run the command below to install the necessary requirements.
+1. Create a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) and activate it.
 
-```log
-python3 -m pip install -r requirements.txt
-```
+2. Run the command below to install the necessary requirements.
 
-If you are using VS Code for development, follow [the instructions for running a function locally](https://docs.microsoft.com/azure/azure-functions/create-first-function-vs-code-python#run-the-function-locally). Otherwise, follow [these instructions for using Core Tools commands directly to run the function locally](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Cpython%2Cportal%2Cbash#start).
+    ```log
+    python3 -m pip install -r requirements.txt
+    ```
 
-Once the function is running, test the function at the local URL displayed in the Terminal panel:
+3. If you are using VS Code for development, follow [the instructions for running a function locally](https://docs.microsoft.com/azure/azure-functions/create-first-function-vs-code-python#run-the-function-locally). Otherwise, follow [these instructions for using Core Tools commands directly to run the function locally](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Cpython%2Cportal%2Cbash#start).
 
-```log
-Functions:
-        WrapperFunction: [GET,POST] http://localhost:7071/{*route}
-```
+4. Once the function is running, test the function at the local URL displayed in the Terminal panel:
 
-Try out URLs corresponding to the handlers in the app, both the simple path and the parameterized path:
+    ```log
+    Functions:
+            WrapperFunction: [GET,POST] http://localhost:7071/{*route}
+    ```
 
-```
-http://localhost:7071/sample
-http://localhost:7071/hello/YourName
-```
+    Try out URLs corresponding to the handlers in the app, both the simple path and the parameterized path:
+
+    ```
+    http://localhost:7071/sample
+    http://localhost:7071/hello/YourName
+    ```
 
 ### Deploying to Azure
 
