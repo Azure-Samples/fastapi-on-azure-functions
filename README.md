@@ -138,6 +138,11 @@ There are three main ways to deploy this to Azure:
 * [Deploy with the Azure CLI](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=azure-cli%2Cbash%2Cbrowser#create-supporting-azure-resources-for-your-function).
 * Deploy with the Azure Developer CLI: After [installing the `azd` tool](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=localinstall%2Cwindows%2Cbrew), run `azd up` in the root of the project. You can also run `azd pipeline config` to set up a CI/CD pipeline for deployment.
 
+All approaches will provision a Function App, Storage account (to store the code), and a Log Analytics workspace.
+
+![Azure resources created by the deployment: Function App, Storage Account, Log Analytics workspace](./readme_diagram.png)
+
+
 ### Testing in Azure
 
 Once deployed, test different paths on the deployed URL, using either a browser or a tool like Postman.
