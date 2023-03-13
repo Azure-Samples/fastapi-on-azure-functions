@@ -142,7 +142,6 @@ All approaches will provision a Function App, Storage account (to store the code
 
 ![Azure resources created by the deployment: Function App, Storage Account, Log Analytics workspace](./readme_diagram.png)
 
-
 ### Testing in Azure
 
 Once deployed, test different paths on the deployed URL, using either a browser or a tool like Postman.
