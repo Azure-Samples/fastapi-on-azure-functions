@@ -19,8 +19,6 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 }
 
 var prefix = '${name}-${resourceToken}'
-var appInsightsName = '${prefix}-appinsights'
-var appServicePlanName = '${prefix}-plan'
 
 module monitoring './core/monitor/monitoring.bicep' = {
   name: 'monitoring'
@@ -29,7 +27,7 @@ module monitoring './core/monitor/monitoring.bicep' = {
     location: location
     tags: tags
     logAnalyticsName: '${prefix}-logworkspace'
-    applicationInsightsName: appInsightsName
+    applicationInsightsName: '${prefix}-appinsights'
     applicationInsightsDashboardName: '${prefix}-appinsights-dashboard'
   }
 }
@@ -48,7 +46,7 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
   name: 'appserviceplan'
   scope: resourceGroup
   params: {
-    name: appServicePlanName
+    name: '${prefix}-plan'
     location: location
     tags: tags
     sku: {
@@ -70,7 +68,7 @@ module functionApp 'core/host/functions.bicep' = {
       PYTHON_ISOLATE_WORKER_DEPENDENCIES: 1
       AzureWebJobsFeatureFlags: 'EnableWorkerIndexing'
     }
-    applicationInsightsName: appInsightsName
+    applicationInsightsName: monitoring.outputs.applicationInsightsName
     appServicePlanId: appServicePlan.outputs.id
     runtimeName: 'python'
     runtimeVersion: '3.10'
