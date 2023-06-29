@@ -7,12 +7,7 @@
       "command": "host start",
       "problemMatcher": "$func-python-watch",
       "isBackground": true,
-      "dependsOn": "pip install (functions)",
-      "options": {
-        "env": {
-          "PYTHON_ISOLATE_WORKER_DEPENDENCIES": "1"
-        }
-      }
+      "dependsOn": "pip install (functions)"
     },
     {
       "label": "pip install (functions)",

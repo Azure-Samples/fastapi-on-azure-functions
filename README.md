@@ -13,7 +13,7 @@ urlFragment: azure-functions-python-create-fastapi-app
 
 # Using FastAPI Framework with Azure Functions
 
-Azure Functions supports WSGI and ASGI-compatible frameworks with HTTP-triggered Python functions. This can be helpful if you are familiar with a particular framework, or if you have existing code you would like to reuse to create the Function app. The following is an example of creating an Azure Function app using Fast API.
+Azure Functions supports WSGI and ASGI-compatible frameworks with HTTP-triggered Python functions. This can be helpful if you are familiar with a particular framework, or if you have existing code you would like to reuse to create the Function app. The following is an example of creating an Azure Function app using FastAPI.
 
 ## Prerequisites
 
@@ -52,39 +52,24 @@ The file host.json includes the a `routePrefix` key with a value of empty string
 ```
 
 
-Inside the `WrapperFunction` folder, the file `function.json` includes a `route` key in the bindings:
-
-```json
-{
-  "scriptFile": "__init__.py",
-  "bindings": [
-    {
-      "authLevel": "anonymous",
-      "type": "httpTrigger",
-      "direction": "in",
-      "name": "req",
-      "methods": [
-        "get",
-        "post"
-      ],
-      "route": "{*route}"
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "$return"
-    }
-  ]
-}
-```
-
-In that same folder, the `__init__.py` file uses `AsgiMiddleware` to redirect invocations to a FastAPI app with two routes defined.
+The root folder contains `function_app.py` which initializes an `AsgiFunctionApp` using the imported `FastAPI` app:
 
 ```python
-import logging
 import azure.functions as func
-from FastAPIApp import app  # Main API application
 
+from WrapperFunction import app as fastapi_app
+
+app = func.AsgiFunctionApp(app=fastapi_app, http_auth_level=func.AuthLevel.ANONYMOUS)
+```
+
+In the `WrapperFunction` folder, the `__init__.py` file defines a FastAPI app in the typical way (no changes needed):
+
+```python
+import azure.functions as func
+
+import fastapi
+
+app = fastapi.FastAPI()
 
 @app.get("/sample")
 async def index():
@@ -98,10 +83,6 @@ async def get_name(name: str):
     return {
         "name": name,
     }
-
-async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
-    """Each request is redirected to the ASGI handler."""
-    return await func.AsgiMiddleware(app).handle_async(req, context)
 ```
 
 ## Running the sample
@@ -120,7 +101,7 @@ Once the function is running, test the function at the local URL displayed in th
 
 ```log
 Functions:
-        WrapperFunction: [GET,POST] http://localhost:7071/{*route}
+        http_app_func: [GET,POST,DELETE,HEAD,PATCH,PUT,OPTIONS] http://localhost:7071//{*route}
 ```
 
 Try out URLs corresponding to the handlers in the app, both the simple path and the parameterized path:
@@ -147,11 +128,7 @@ http://<FunctionAppName>.azurewebsites.net/sample
 http://<FunctionAppName>.azurewebsites.net/hello/Foo
 ```
 
-If you get an error about `handle_async` not being defined, that is likely because the Azure Functions runtime doesn't yet have the latest version of `azure-functions`.
-To work around that for now, add an environment value with the name `PYTHON_ISOLATE_WORKER_DEPENDENCIES` and value of `1`.
-That environment variable ensures that the packages in your `requirements.txt` are installed in a separate virtual environment than the packages of the functions runtime.
-
-## Conclusion and Next Steps
+## Next Steps
 
 Now you have a simple Azure Function App using the FastAPI framework, and you can continue building on it to develop more sophisticated applications.
 
