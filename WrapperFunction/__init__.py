@@ -1,7 +1,8 @@
-import logging
 import azure.functions as func
-from FastAPIApp import app  # Main API application
 
+import fastapi
+
+app = fastapi.FastAPI()
 
 @app.get("/sample")
 async def index():
@@ -15,7 +16,3 @@ async def get_name(name: str):
     return {
         "name": name,
     }
-
-
-async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
-    return await func.AsgiMiddleware(app).handle_async(req, context)

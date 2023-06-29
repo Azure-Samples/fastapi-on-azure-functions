@@ -68,11 +68,12 @@ module functionApp 'core/host/functions.bicep' = {
     alwaysOn: false
     appSettings: {
       PYTHON_ISOLATE_WORKER_DEPENDENCIES: 1
+      AzureWebJobsFeatureFlags: 'EnableWorkerIndexing'
     }
     applicationInsightsName: appInsightsName
     appServicePlanId: appServicePlan.outputs.id
     runtimeName: 'python'
-    runtimeVersion: '3.9'
+    runtimeVersion: '3.10'
     storageAccountName: storageAccount.outputs.name
   }
 }

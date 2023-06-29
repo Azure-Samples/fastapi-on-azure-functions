@@ -3,7 +3,7 @@
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
-            "VARIANT": "3.9-bullseye"
+            "VARIANT": "3.10-bullseye"
         }
     },
     "forwardPorts": [8000, 7071],
@@ -21,7 +21,6 @@
             "extensions": [
                 "ms-azuretools.azure-dev",
                 "ms-azuretools.vscode-bicep",
-                "ms-azuretools.vscode-docker",
                 "ms-vscode.vscode-node-azure-pack",
                 "ms-python.python",
                 "ms-azuretools.vscode-azurefunctions"
