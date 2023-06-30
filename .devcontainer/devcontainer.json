@@ -8,9 +8,6 @@
     },
     "forwardPorts": [8000, 7071],
     "features": {
-        "ghcr.io/devcontainers/features/github-cli:1": {
-            "version": "2"
-        },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "16",
             "nodeGypDependencies": false
