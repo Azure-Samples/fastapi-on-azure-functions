@@ -1,7 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
 name: fastapi-on-azure-functions
-
+metadata:
+  template: fastapi-on-azure-functions@0.0.1-beta
 services:
   api:
     project: .
