@@ -9,7 +9,7 @@ products:
 - azure-functions
 urlFragment: fastapi-on-azure-functions
 name: Using FastAPI Framework with Azure Functions
-description: A simple FastAPI app deployed to Azure Functions. Can also be run and debugged locally with the Azure Functions Core Tool emulator.
+description: This is a sample Azure Function app created with the FastAPI framework.
 ---
 <!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
