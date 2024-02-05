@@ -1,15 +1,17 @@
 ---
 page_type: sample
 languages:
+- azdeveloper
 - python
+- bicep
 products:
 - azure
 - azure-functions
-description: "This is a sample Azure Function app created with the FastAPI framework."
-title: Using FastAPI Framework with Azure Functions
-author: shreyabatra4, vrdmr
-urlFragment: azure-functions-python-create-fastapi-app
+urlFragment: fastapi-on-azure-functions
+name: Using FastAPI Framework with Azure Functions
+description: This is a sample Azure Function app created with the FastAPI framework.
 ---
+<!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
 # Using FastAPI Framework with Azure Functions
 
