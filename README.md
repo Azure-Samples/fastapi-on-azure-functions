@@ -94,7 +94,7 @@ async def get_name(name: str):
 2. Run the command below to install the necessary requirements.
 
     ```log
-    python3 -m pip install -r requirements.txt
+    python -m pip install -r requirements.txt
     ```
 
 3. If you are using VS Code for development, click the "Run and Debug" button or follow [the instructions for running a function locally](https://docs.microsoft.com/azure/azure-functions/create-first-function-vs-code-python#run-the-function-locally). Outside of VS Code, follow [these instructions for using Core Tools commands directly to run the function locally](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Cpython%2Cportal%2Cbash#start).

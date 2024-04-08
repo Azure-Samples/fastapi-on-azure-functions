@@ -1,3 +1,4 @@
+metadata description = 'Creates an Azure Function in an existing Azure App Service plan.'
 param name string
 param location string = resourceGroup().location
 param tags object = {}
@@ -40,6 +41,7 @@ param minimumElasticInstanceCount int = -1
 param numberOfWorkers int = -1
 param scmDoBuildDuringDeployment bool = true
 param use32BitWorkerProcess bool = false
+param healthCheckPath string = ''
 
 module functions 'appservice.bicep' = {
   name: '${name}-functions'
@@ -60,6 +62,7 @@ module functions 'appservice.bicep' = {
     clientAffinityEnabled: clientAffinityEnabled
     enableOryxBuild: enableOryxBuild
     functionAppScaleLimit: functionAppScaleLimit
+    healthCheckPath: healthCheckPath
     keyVaultName: keyVaultName
     kind: kind
     linuxFxVersion: linuxFxVersion
