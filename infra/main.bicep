@@ -74,3 +74,14 @@ module functionApp 'core/host/functions.bicep' = {
     storageAccountName: storageAccount.outputs.name
   }
 }
+
+
+module diagnostics 'core/host/app-diagnostics.bicep' = {
+  name: '${name}-functions-diagnostics'
+  scope: resourceGroup
+  params: {
+    appName: functionApp.outputs.name
+    kind: 'functionapp'
+    diagnosticWorkspaceId: monitoring.outputs.logAnalyticsWorkspaceId
+  }
+}
