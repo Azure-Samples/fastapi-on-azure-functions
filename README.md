@@ -143,8 +143,8 @@ http://<FunctionAppName>.azurewebsites.net/hello/Foo
 You can call the URL endpoints using your browser (GET requests) or one one of these HTTP test tools:
 
 - [Visual Studio Code](https://code.visualstudio.com/download) with an [extension from Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode)
-- [PowerShell Invoke-RestMethod](/powershell/module/microsoft.powershell.utility/invoke-restmethod)
-- [Microsoft Edge - Network Console tool](/microsoft-edge/devtools-guide-chromium/network-console/network-console-tool)
+- [PowerShell Invoke-RestMethod](https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/invoke-restmethod)
+- [Microsoft Edge - Network Console tool](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/network-console/network-console-tool)
 - [Bruno](https://www.usebruno.com/)
 - [curl](https://curl.se/)
 
