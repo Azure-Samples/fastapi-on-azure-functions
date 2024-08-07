@@ -134,12 +134,26 @@ All approaches will provision a Function App, Storage account (to store the code
 
 ### Testing in Azure
 
-Once deployed, test different paths on the deployed URL, using either a browser or a tool like Postman.
+After deployment, test these different paths on the deployed URL: 
 
 ```
 http://<FunctionAppName>.azurewebsites.net/sample
 http://<FunctionAppName>.azurewebsites.net/hello/Foo
 ```
+You can call the URL endpoints using your browser (GET requests) or one one of these HTTP test tools:
+
+- [Visual Studio Code](https://code.visualstudio.com/download) with an [extension from Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode)
+- [PowerShell Invoke-RestMethod](/powershell/module/microsoft.powershell.utility/invoke-restmethod)
+- [Microsoft Edge - Network Console tool](/microsoft-edge/devtools-guide-chromium/network-console/network-console-tool)
+- [Bruno](https://www.usebruno.com/)
+- [curl](https://curl.se/)
+
+> [!CAUTION]  
+> For scenarios where you have sensitive data, such as credentials, secrets, access tokens, 
+> API keys, and other similar information, make sure to use a tool that protects your data 
+> with the necessary security features, works offline or locally, doesn't sync your data to 
+> the cloud, and doesn't require that you sign in to an online account. This way, you reduce 
+> the risk around exposing sensitive data to the public.
 
 ## Next Steps
 
