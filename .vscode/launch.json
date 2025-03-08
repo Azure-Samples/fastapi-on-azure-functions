@@ -6,7 +6,7 @@
       "type": "debugpy",
       "request": "attach",
       "connect": {
-        "port": 7071
+        "port": 9091
       },
       "preLaunchTask": "func: host start"
     }
