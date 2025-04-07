@@ -13,9 +13,80 @@ description: This is a sample Azure Function app created with the FastAPI framew
 ---
 <!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
-# Using FastAPI Framework with Azure Functions
+# FastAPI on Azure Functions
+
+[![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=449261589)
+[![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/fastapi-on-azure-functions)
 
 Azure Functions supports WSGI and ASGI-compatible frameworks with HTTP-triggered Python functions. This can be helpful if you are familiar with a particular framework, or if you have existing code you would like to reuse to create the Function app. The following is an example of creating an Azure Function app using FastAPI.
+
+## Features
+- FastAPI integration with Azure Functions
+- Automatic OpenAPI/Swagger documentation
+- Python async support
+- Easy deployment to Azure
+- Built-in monitoring with Application Insights
+
+## Getting Started
+
+### Prerequisites
+- Python 3.9 or later
+- Azure Functions Core Tools
+- Azure CLI
+- Visual Studio Code (recommended)
+
+### Installation
+1. Clone the repository
+2. Create a virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Linux/macOS
+   .venv\Scripts\activate     # Windows
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Architecture
+The application uses a serverless architecture powered by Azure Functions:
+
+![Architecture Diagram](readme_diagram.png)
+
+## Region Availability
+This template can be deployed to any Azure region that supports:
+- Azure Functions with Python
+- Application Insights
+- Azure Storage
+For the most up-to-date information on regional availability, visit the [Azure Products by Region](https://azure.microsoft.com/en-us/global-infrastructure/services/) page.
+
+## Costs
+The main cost components for this solution are:
+- Azure Functions consumption plan (pay-per-execution)
+- Azure Storage account
+- Application Insights
+
+Estimated costs for typical usage patterns:
+- Development/Testing: $10-20/month
+- Production (moderate load): $50-100/month
+
+For detailed pricing, use the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/)
+
+## Security
+This project implements several security best practices:
+- HTTPS-only access
+- Managed Identity support
+- Application-level logging
+- Secure default configurations
+
+For security-related issues, please see our [Security Policy](SECURITY.md).
+
+## Resources
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [Azure Functions Python Developer Guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-python)
+- [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/)
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## Prerequisites
 
@@ -160,3 +231,13 @@ You can call the URL endpoints using your browser (GET requests) or one one of t
 Now you have a simple Azure Function App using the FastAPI framework, and you can continue building on it to develop more sophisticated applications.
 
 To learn more about leveraging WSGI and ASGI-compatible frameworks, see [Web frameworks](https://docs.microsoft.com/azure/azure-functions/functions-reference-python?tabs=asgi%2Cazurecli-linux%2Capplication-level#web-frameworks).
+
+## Security Notice
+This project implements several security best practices:
+- HTTPS-only access to endpoints
+- Managed Identity support for secure Azure resource access
+- Application-level logging and monitoring
+- Protection against common web vulnerabilities
+- Regular security scanning through GitHub Actions
+
+For more details on security practices and reporting vulnerabilities, please see our [Security Policy](SECURITY.md).

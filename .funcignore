@@ -3,3 +3,10 @@
 local.settings.json
 test
 .venv
+.env
+__pycache__
+.python_packages
+infra
+README.md
+LICENSE
+.gitignore

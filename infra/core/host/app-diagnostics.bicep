@@ -29,7 +29,6 @@ param diagnosticMetricsToEnable array = [
   'AllMetrics'
 ]
 
-
 var diagnosticsLogs = [for category in diagnosticLogCategoriesToEnable: {
   category: category
   enabled: true
@@ -49,7 +48,7 @@ resource app_diagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-0
   name: '${appName}-diagnostics'
   scope: app
   properties: {
-    workspaceId:  diagnosticWorkspaceId 
+    workspaceId: diagnosticWorkspaceId
     metrics: diagnosticsMetrics
     logs: diagnosticsLogs
   }

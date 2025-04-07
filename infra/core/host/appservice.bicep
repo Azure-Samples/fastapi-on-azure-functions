@@ -40,7 +40,9 @@ param healthCheckPath string = ''
 resource appService 'Microsoft.Web/sites@2022-03-01' = {
   name: name
   location: location
-  tags: tags
+  tags: union(tags, {
+    'azd-service-name': 'api'
+  })
   kind: kind
   properties: {
     serverFarmId: appServicePlanId

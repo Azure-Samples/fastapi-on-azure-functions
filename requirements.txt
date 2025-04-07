@@ -2,5 +2,8 @@
 # The Python Worker is managed by Azure Functions platform
 # Manually managing azure-functions-worker may cause unexpected issues
 
-azure-functions>=1.12.0
-fastapi
+azure-functions==1.17.0
+fastapi>=0.68.0,<1.0.0
+python-multipart>=0.0.5
+typing-extensions>=4.0.0
+uvicorn>=0.15.0

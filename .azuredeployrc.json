@@ -1,0 +1,13 @@
+{
+  "archiver": {
+    "commandOptions": {
+      "include": [
+        "function_app.py",
+        "host.json",
+        "requirements.txt",
+        "HttpTrigger/**",
+        "WrapperFunction/**"
+      ]
+    }
+  }
+}
