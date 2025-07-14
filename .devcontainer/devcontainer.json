@@ -1,34 +1,35 @@
 {
-    "name": "FastAPI on Azure Functions",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "args": {
-            "VARIANT": "3.10-bullseye"
-        }
-    },
-    "forwardPorts": [8000, 7071],
+    "name": "Functions Quickstarts Codespace",
+    "dockerFile": "Dockerfile",
     "features": {
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "16",
-            "nodeGypDependencies": false
-        },
-        "ghcr.io/azure/azure-dev/azd:latest": {}
+      "azure-cli": "latest"
     },
     "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-azuretools.azure-dev",
-                "ms-azuretools.vscode-bicep",
-                "ms-vscode.vscode-node-azure-pack",
-                "ms-python.python",
-                "ms-azuretools.vscode-azurefunctions"
-            ]
-        }
+      "vscode": {
+        "extensions": [
+          "ms-azuretools.vscode-bicep",
+          "ms-azuretools.vscode-docker",
+          "ms-azuretools.vscode-azurefunctions",
+          "GitHub.copilot",
+          "humao.rest-client"
+        ]
+      }
     },
-    "postCreateCommand": "python3 -m venv .venv",
-    "postAttachCommand": ". .venv/bin/activate",
-    "remoteUser": "vscode",
-    "hostRequirements": {
-        "memory": "8gb"
-    }
-}
+    "mounts": [
+      // Mount docker-in-docker library volume
+      "source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume"
+    ],
+    // Always run image-defined docker-init.sh to enable docker-in-docker
+    "overrideCommand": false,
+    "remoteUser": "codespace",
+    "runArgs": [
+      // Enable ptrace-based debugging for Go in container
+      "--cap-add=SYS_PTRACE",
+      "--security-opt",
+      "seccomp=unconfined",
+  
+      // Enable docker-in-docker configuration
+      "--init",
+      "--privileged"
+    ]
+  }

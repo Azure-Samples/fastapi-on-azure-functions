@@ -1,3 +1,4 @@
+<!--
 ---
 page_type: sample
 languages:
@@ -9,154 +10,211 @@ products:
 - azure-functions
 urlFragment: fastapi-on-azure-functions
 name: Using FastAPI Framework with Azure Functions
-description: This is a sample Azure Function app created with the FastAPI framework.
+description: This is a sample Azure Function app created with the FastAPI framework using Azure Functions Python v2 programming model and Flex Consumption plan.
 ---
+-->
 <!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
 # Using FastAPI Framework with Azure Functions
 
-Azure Functions supports WSGI and ASGI-compatible frameworks with HTTP-triggered Python functions. This can be helpful if you are familiar with a particular framework, or if you have existing code you would like to reuse to create the Function app. The following is an example of creating an Azure Function app using FastAPI.
+Azure Functions supports WSGI and ASGI-compatible frameworks with HTTP-triggered Python functions. This sample demonstrates creating an Azure Function app using FastAPI with the Azure Functions Python v2 programming model and modern infrastructure including Flex Consumption plan, managed identity, and optional VNet integration.
+
+## Features
+
+- **Azure Functions Python v2 Programming Model**: Uses direct function decorators, no function.json files needed
+- **Native FastAPI Support**: Leverages Azure Functions' built-in FastAPI integration
+- **Flex Consumption Plan**: Modern, scalable hosting plan replacing the deprecated Y1 plan
+- **Managed Identity**: Secure authentication without connection strings
+- **Optional VNet Integration**: Enhanced security with virtual network isolation
+- **Modern Infrastructure**: Uses Azure Verified Modules (AVM) for secure and compliant resource deployment
 
 ## Prerequisites
 
-You can develop and deploy a function app using either Visual Studio Code or the Azure CLI. Make sure you have the required prerequisites for your preferred environment:
++ [Python 3.12](https://www.python.org/)
++ [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local?pivots=programming-language-python#install-the-azure-functions-core-tools)
++ [Azure Developer CLI (AZD)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd)
++ To use Visual Studio Code to run and debug locally:
+  + [Visual Studio Code](https://code.visualstudio.com/)
+  + [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
-* [Prerequisites for VS Code](https://docs.microsoft.com/azure/azure-functions/create-first-function-vs-code-python#configure-your-environment)
-* [Prerequisites for Azure CLI](https://docs.microsoft.com/azure/azure-functions/create-first-function-cli-python#configure-your-local-environment)
+## Getting Started
 
-## Setup
+You can initialize a project from this template in one of these ways:
 
-Clone or download [this sample's repository](https://github.com/Azure-Samples/fastapi-on-azure-functions/), and open the `fastapi-on-azure-functions` folder in Visual Studio Code or your preferred editor (if you're using the Azure CLI).
++ Use this `azd init` command from an empty local (root) folder:
 
-## Using FastAPI Framework in an Azure Function App
+    ```shell
+    azd init --template fastapi-on-azure-functions
+    ```
 
-The code in the sample folder has already been updated to support use of the FastAPI. Let's walk through the changed files.
+    Supply an environment name, such as `fastapiapp` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
 
-The `requirements.txt` file has an additional dependency of the `fastapi` module:
++ Clone the GitHub template repository locally using the `git clone` command:
 
-```
-azure-functions
-fastapi
-```
+    ```shell
+    git clone https://github.com/Azure-Samples/fastapi-on-azure-functions.git
+    cd fastapi-on-azure-functions
+    ```
 
+## Local Development
 
-The file host.json includes the a `routePrefix` key with a value of empty string.
+### Setup Local Environment
+
+Add a file named `local.settings.json` in the root of your project with the following contents:
 
 ```json
 {
-  "version": "2.0",
-  "extensions": {
-    "http": {
-        "routePrefix": ""
+    "IsEncrypted": false,
+    "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python"
     }
-  }
 }
 ```
 
+### Create Virtual Environment
 
-The root folder contains `function_app.py` which initializes an `AsgiFunctionApp` using the imported `FastAPI` app:
+The way that you create your virtual environment depends on your operating system.
+Open the terminal, navigate to the project folder, and run these commands:
 
-```python
-import azure.functions as func
+#### Linux/macOS/bash
 
-from WrapperFunction import app as fastapi_app
-
-app = func.AsgiFunctionApp(app=fastapi_app, http_auth_level=func.AuthLevel.ANONYMOUS)
+```bash
+python -m venv .venv
+source .venv/bin/activate
 ```
 
-In the `WrapperFunction` folder, the `__init__.py` file defines a FastAPI app in the typical way (no changes needed):
+#### Windows (Cmd)
+
+```shell
+py -m venv .venv
+.venv\scripts\activate
+```
+
+### Run Local Development Server
+
+1. Install the necessary requirements:
+
+    ```shell
+    pip install -r requirements.txt
+    ```
+
+2. Start the Functions host locally:
+
+    ```shell
+    func start
+    ```
+
+3. Test the endpoints:
+
+    - GET endpoint: <http://localhost:7071/sample>
+    - Parameterized endpoint: <http://localhost:7071/hello/YourName>
+
+## Azure Functions Python v2 Model
+
+This sample uses the Azure Functions Python v2 programming model with direct FastAPI integration:
 
 ```python
 import azure.functions as func
+from fastapi import FastAPI
 
-import fastapi
+# Initialize FastAPI app
+fastapi_app = FastAPI()
 
-app = fastapi.FastAPI()
-
-@app.get("/sample")
+@fastapi_app.get("/sample")
 async def index():
     return {
         "info": "Try /hello/Shivani for parameterized route.",
     }
 
-
-@app.get("/hello/{name}")
+@fastapi_app.get("/hello/{name}")
 async def get_name(name: str):
     return {
         "name": name,
     }
+
+# Azure Functions app using ASGI with FastAPI
+app = func.AsgiFunctionApp(app=fastapi_app, http_auth_level=func.AuthLevel.ANONYMOUS)
 ```
 
-## Running the sample
+Key advantages of this approach:
+- **No function.json files**: Configuration is done through decorators
+- **Native FastAPI support**: No custom wrappers needed
+- **Simplified project structure**: Single file for function definitions
+- **Better development experience**: Full FastAPI features supported
 
-### Testing locally
+## Deployment to Azure
 
-1. Create a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) and activate it.
+Deploy using Azure Developer CLI:
 
-2. Run the command below to install the necessary requirements.
-
-    ```log
-    python -m pip install -r requirements.txt
-    ```
-
-3. If you are using VS Code for development, click the "Run and Debug" button or follow [the instructions for running a function locally](https://docs.microsoft.com/azure/azure-functions/create-first-function-vs-code-python#run-the-function-locally). Outside of VS Code, follow [these instructions for using Core Tools commands directly to run the function locally](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Cpython%2Cportal%2Cbash#start).
-
-4. Once the function is running, test the function at the local URL displayed in the Terminal panel:
-=======
-```log
-Functions:
-        http_app_func: [GET,POST,DELETE,HEAD,PATCH,PUT,OPTIONS] http://localhost:7071//{*route}
+```shell
+azd up
 ```
 
-    ```log
-    Functions:
-            WrapperFunction: [GET,POST] http://localhost:7071/{*route}
-    ```
+This command provisions the function app with required Azure resources and deploys your code. By default, the deployment includes:
 
-    Try out URLs corresponding to the handlers in the app, both the simple path and the parameterized path:
+- **Flex Consumption Plan**: Modern scaling with FC1 tier
+- **Managed Identity**: Secure authentication for Azure resources
+- **Virtual Network**: Optional network isolation (enabled by default)
+- **Application Insights**: Monitoring and diagnostics
+- **Storage Account**: Required for Functions runtime
 
-    ```
-    http://localhost:7071/sample
-    http://localhost:7071/hello/YourName
-    ```
+### VNet Configuration
 
-### Deploying to Azure
+By default, this sample deploys with a virtual network (VNet) for enhanced security. The `VNET_ENABLED` parameter controls this:
+- When `VNET_ENABLED` is `true` (default), resources are deployed with VNet isolation
+- When `VNET_ENABLED` is `false`, resources are deployed with public access
 
-There are three main ways to deploy this to Azure:
+To disable VNet for this sample:
+```bash
+azd env set VNET_ENABLED false
+azd up
+```
 
-* [Deploy with the VS Code Azure Functions extension](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-python#publish-the-project-to-azure). 
-* [Deploy with the Azure CLI](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-python?tabs=azure-cli%2Cbash%2Cbrowser#create-supporting-azure-resources-for-your-function).
-* Deploy with the Azure Developer CLI: After [installing the `azd` tool](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=localinstall%2Cwindows%2Cbrew), run `azd up` in the root of the project. You can also run `azd pipeline config` to set up a CI/CD pipeline for deployment.
+## Infrastructure
 
-All approaches will provision a Function App, Storage account (to store the code), and a Log Analytics workspace.
+The infrastructure uses Azure Verified Modules (AVM) for secure, compliant deployments:
 
-![Azure resources created by the deployment: Function App, Storage Account, Log Analytics workspace](./readme_diagram.png)
+- **Function App**: Flex Consumption plan with Python 3.12 runtime
+- **Storage Account**: Secure storage with managed identity authentication
+- **Application Insights**: Monitoring with AAD authentication
+- **Virtual Network**: Optional network isolation
+- **Private Endpoints**: Secure connectivity when VNet is enabled
 
-### Testing in Azure
+## Testing in Azure
 
 After deployment, test these different paths on the deployed URL: 
 
 ```
-http://<FunctionAppName>.azurewebsites.net/sample
-http://<FunctionAppName>.azurewebsites.net/hello/Foo
+https://<FunctionAppName>.azurewebsites.net/sample
+https://<FunctionAppName>.azurewebsites.net/hello/FastAPI
 ```
-You can call the URL endpoints using your browser (GET requests) or one one of these HTTP test tools:
 
-- [Visual Studio Code](https://code.visualstudio.com/download) with an [extension from Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode)
+You can test using:
+- [Visual Studio Code with REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - [PowerShell Invoke-RestMethod](https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/invoke-restmethod)
-- [Microsoft Edge - Network Console tool](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/network-console/network-console-tool)
-- [Bruno](https://www.usebruno.com/)
 - [curl](https://curl.se/)
+- [Bruno](https://www.usebruno.com/)
 
 > [!CAUTION]  
 > For scenarios where you have sensitive data, such as credentials, secrets, access tokens, 
 > API keys, and other similar information, make sure to use a tool that protects your data 
 > with the necessary security features, works offline or locally, doesn't sync your data to 
-> the cloud, and doesn't require that you sign in to an online account. This way, you reduce 
-> the risk around exposing sensitive data to the public.
+> the cloud, and doesn't require that you sign in to an online account.
+
+## Clean Up Resources
+
+When you're done, you can delete the function app and related resources from Azure to avoid incurring further costs:
+
+```shell
+azd down
+```
 
 ## Next Steps
 
-Now you have a simple Azure Function App using the FastAPI framework, and you can continue building on it to develop more sophisticated applications.
+Now you have a modern Azure Function App using the FastAPI framework with Azure Functions Python v2 programming model. You can continue building on it to develop more sophisticated applications.
 
-To learn more about leveraging WSGI and ASGI-compatible frameworks, see [Web frameworks](https://docs.microsoft.com/azure/azure-functions/functions-reference-python?tabs=asgi%2Cazurecli-linux%2Capplication-level#web-frameworks).
+To learn more:
+- [Azure Functions Python v2 Programming Model](https://learn.microsoft.com/azure/azure-functions/functions-reference-python?tabs=get-started%2Casgi%2Capplication-level&pivots=python-mode-decorators)
+- [FastAPI Integration with Azure Functions](https://learn.microsoft.com/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=python-v2%2Cisolated-process%2Cnodejs-v4%2Cfunctionsv2&pivots=programming-language-python#example)
+- [Flex Consumption Plan](https://learn.microsoft.com/azure/azure-functions/flex-consumption-plan)
