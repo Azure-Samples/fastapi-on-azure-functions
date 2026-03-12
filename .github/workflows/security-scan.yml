@@ -8,6 +8,8 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Run weekly
 
+permissions: {}
+
 jobs:
   security:
     runs-on: ubuntu-latest
