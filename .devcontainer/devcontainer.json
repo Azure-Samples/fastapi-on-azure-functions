@@ -1,5 +1,5 @@
 {
-    "name": "Python FastAPI Function",
+    "name": "FastAPI on Azure Functions",
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
@@ -29,7 +29,7 @@
             ]
         }
     },
-    "postCreateCommand": "pip install -r requirements.txt",
+    "postCreateCommand": "python -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt",
     "postAttachCommand": ". .venv/bin/activate",
     "remoteUser": "vscode",
     "hostRequirements": {
