@@ -27,6 +27,7 @@ jobs:
         id: msdo
         with:
           categories: 'python,IaC'
+          tools: 'checkov'
 
       - name: Upload results to Security tab
         uses: github/codeql-action/upload-sarif@v3
