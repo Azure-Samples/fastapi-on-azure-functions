@@ -10,6 +10,18 @@
       "dependsOn": "pip install (functions)"
     },
     {
+      "label": "uvicorn: start",
+      "type": "shell",
+      "command": "${config:azureFunctions.pythonVenv}\\Scripts\\python",
+      "args": ["-m", "uvicorn", "WrapperFunction:app", "--reload", "--host", "0.0.0.0", "--port", "7071"],
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
       "label": "pip install (functions)",
       "type": "shell",
       "osx": {

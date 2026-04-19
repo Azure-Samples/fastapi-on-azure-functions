@@ -8,6 +8,15 @@
       "connect": {
         "port": 7071
       },
+      "preLaunchTask": "uvicorn: start"
+    },
+    {
+      "name": "Attach to Azure Functions (func)",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "port": 7071
+      },
       "preLaunchTask": "func: host start"
     }
   ]
